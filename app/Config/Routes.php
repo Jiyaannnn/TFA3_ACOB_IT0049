@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
 // A route connects a browser URL to the controller method that should handle it.
 $routes->get('/', 'Pages::index');
 $routes->get('/about', 'Pages::about');
+// Task changes use POST with CodeIgniter's CSRF filter, including deletion.
 $routes->get('/tasks', 'Tasks::index');
 $routes->get('/tasks/new', 'Tasks::new');
 $routes->post('/tasks', 'Tasks::create', ['filter' => 'csrf']);

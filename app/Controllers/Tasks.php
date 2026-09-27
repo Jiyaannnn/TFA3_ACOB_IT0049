@@ -14,6 +14,7 @@ class Tasks extends BaseController
 
     public function new(): string
     {
+        // A new task starts on today's date with a pending status.
         return $this->taskForm(null, [], ['task_date' => date('Y-m-d'), 'status' => 'pending']);
     }
 
@@ -39,6 +40,7 @@ class Tasks extends BaseController
     public function delete(int $id)
     {
         $model = new TaskModel();
+        // Check the record first so an unknown ID returns a 404 instead of a success message.
         if ($model->find($id) === null) {
             throw PageNotFoundException::forPageNotFound();
         }
@@ -48,6 +50,7 @@ class Tasks extends BaseController
 
     private function saveTask(?int $id)
     {
+        // The same save path handles creation and editing; an ID means this is an edit.
         $model = new TaskModel();
         $task = $id === null ? null : $model->find($id);
         if ($id !== null && $task === null) {
@@ -65,8 +68,10 @@ class Tasks extends BaseController
             'status' => 'required|in_list[pending,in progress,completed]',
         ];
         if (! $this->validateData($values, $rules)) {
+            // Redisplay the submitted values so the user can correct only the invalid fields.
             return $this->taskForm($task, $this->validator->getErrors(), $values);
         }
+        // created_at is set once; editing keeps the original creation timestamp.
         if ($id === null) {
             $values['created_at'] = date('Y-m-d H:i:s');
             $model->insert($values);
