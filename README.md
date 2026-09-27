@@ -1,6 +1,6 @@
 # Ledgerline Refill TFA3
 
-**Making It Editable: Forms, Validation, and File Upload** extends Jian Edward A. Acob's TSA1 Ledgerline Refill CodeIgniter application. The refill-shop design, Today page, demo profile, About page, and light/dark theme remain. TFA3 adds editable tasks, customer and staff accounts, validation, staff profile pictures, and a bottle-and-return logo image.
+I built **Making It Editable: Forms, Validation, and File Upload** from my TSA1 Ledgerline Refill CodeIgniter application. I kept its refill-shop design, Today page, demo profile, About page, and light/dark theme. I added editable tasks, customer and staff accounts, validation, staff profile pictures, and a bottle-and-return logo image.
 
 - **Student:** Jian Edward A. Acob
 - **Section:** TW32
@@ -70,7 +70,7 @@ For fresh databases instead of the exports, create both databases, run `php spar
 - `database/ledgerline_pos_tfa3.sql`: five customers, five staff users, avatar column, and one generated initials avatar. The matching public image is included for demonstration.
 - `database/ledgerline_refill_tfa3.sql`: nine task records across four dates, one demo task-system user, and migration history.
 
-The TFA3 task data lives in a new database. The original TSA1 project and database were not changed.
+I placed the TFA3 task data in a new database and left my original TSA1 project and database unchanged.
 
 ## Files to explain
 
@@ -88,4 +88,4 @@ The TFA3 task data lives in a new database. The original TSA1 project and databa
 
 Repository: https://github.com/Jiyaannnn/TFA3_ACOB_IT0049
 
-The supplied TFA3 instructions also list a hosted working version. No live hosted URL has been verified for this project. The user chose GitHub publication as the publishing scope. The app has no authentication or role authorization; it is a classroom demonstration, not a production account system.
+I published this activity on GitHub. Hosting is required for our final project, not this activity. My app has no authentication or role authorization because I built it as a classroom demonstration.
