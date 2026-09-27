@@ -1,25 +1,32 @@
-# Ledgerline POS TFA3
+# Ledgerline Refill TFA3
 
-**Making It Editable: Forms, Validation, and File Upload** is Jian Edward A. Acob's CodeIgniter 4 project for IT0049 Web System Technologies, section TW32. It extends the TFA2 POS directory with customer and staff creation, editing, form validation, and staff avatar uploads.
+**Making It Editable: Forms, Validation, and File Upload** extends Jian Edward A. Acob's TSA1 Ledgerline Refill CodeIgniter application. The refill-shop design, Today page, full task list, demo profile, About page, and light/dark theme remain. TFA3 adds editable customer and staff accounts, validation, and staff profile pictures.
 
-## Features
+- **Student:** Jian Edward A. Acob
+- **Section:** TW32
+- **Course:** IT0049 - Web System Technologies
+- **Framework:** CodeIgniter 4.7.4, PHP, MySQL
 
-| Page | Purpose |
+## Pages
+
+| Route | Purpose |
 | --- | --- |
-| `/` | Dashboard with live database counts |
-| `/customers` | Customer listing with edit links |
+| `/` | Refill-shop Today page with tasks scheduled for the current date |
+| `/tasks` | Complete task list |
+| `/profile` | Demo task-system user |
+| `/about` | Shop concept and project details |
+| `/customers` | Customer directory with edit actions |
 | `/customers/new` | Validated new customer form |
 | `/customers/{id}/edit` | Prefilled customer edit form |
-| `/users` | Staff listing with prepared avatars or placeholder |
-| `/users/new` | Validated new user form with unique username |
-| `/users/{id}/edit` | Prefilled user edit form with JPG/PNG upload (2 MB maximum) |
-| `/about` | Project and student information |
+| `/users` | Staff directory with avatars or placeholders |
+| `/users/new` | Validated new user form |
+| `/users/{id}/edit` | Prefilled user edit form with optional avatar upload |
 
-Invalid submissions show field errors while retaining typed values. A successful avatar upload is checked by the framework's image, MIME, and size rules. The image service makes a 320 × 320 JPEG in `public/uploads/avatars`; only the random filename is stored in `users.avatar`.
+Customer creation requires a full name and valid email. User creation requires a full name and unique username. Invalid submissions show field errors and preserve typed values. Edit forms are prefilled from MySQL. An avatar must be a real JPG or PNG no larger than 2 MB. CodeIgniter prepares a 320 × 320 JPEG in `public/uploads/avatars/`; `users.avatar` stores only its filename. Every POST form includes a CSRF token.
 
 ## Requirements
 
-PHP 8.2 or newer with `intl`, `mysqli`, `mbstring`, `fileinfo`, and `gd`; Composer 2; and MySQL 8 or newer. The application is based on CodeIgniter 4.7.4 as pinned in `composer.lock`.
+PHP 8.2+, Composer 2, MySQL 8+, and PHP extensions `intl`, `mysqli`, `mbstring`, `fileinfo`, and `gd` with JPEG support.
 
 ## Local setup
 
@@ -29,7 +36,7 @@ composer install
 cp env .env
 ```
 
-Set these values in `.env`, adjusting the MySQL username and password for your own machine. Do not commit `.env`.
+Set the following in `.env`. Use your own local MySQL credentials. The default and task databases are separate so the task-system `users` table never replaces the staff `users` table.
 
 ```ini
 CI_ENVIRONMENT = development
@@ -40,27 +47,40 @@ database.default.username = root
 database.default.password =
 database.default.DBDriver = MySQLi
 database.default.port = 3306
+database.taskStore.database = ledgerline_refill_tfa3
 ```
 
-Import the submitted database export, then run the application:
+Import the two included exports and start the app:
 
 ```bash
 mysql -u root < database/ledgerline_pos_tfa3.sql
+mysql -u root < database/ledgerline_refill_tfa3.sql
 php spark serve --port 8083
 ```
 
-Open `http://localhost:8083/`. The export contains the five original customers and five original users, the avatar column, and CodeIgniter migration history. For a fresh empty database instead of the export, create `ledgerline_pos_tfa3`, run `php spark migrate`, then `php spark db:seed PosSeeder`.
+Open `http://localhost:8083/`. Port 8083 keeps this project separate while an earlier app uses port 8080. You may choose another free port if `app.baseURL` matches it.
 
-## Deployment
+For fresh databases instead of the exports, create both databases, run `php spark migrate -g default` and `php spark migrate -g taskStore`, then run `php spark db:seed PosSeeder` and `php spark db:seed TaskSystemSeeder` exactly once.
 
-The included `Dockerfile` and `render.yaml` are inherited from the TFA2 project. Hosting requires a persistent MySQL service and a persistent volume for `public/uploads/avatars`; otherwise uploaded pictures disappear after a redeploy. Configure the host's database environment values and `app.baseURL` without placing credentials in Git. Import `database/ledgerline_pos_tfa3.sql` into the hosted database before testing forms.
+## Database exports
 
-## Code map
+- `database/ledgerline_pos_tfa3.sql`: five customers, five staff users, avatar column, and one generated initials avatar. The matching public image is included for demonstration.
+- `database/ledgerline_refill_tfa3.sql`: nine task records across four dates, one demo task-system user, and migration history.
 
-- `app/Config/Routes.php` maps URLs to controller methods.
-- `app/Controllers/Customers.php` and `Users.php` validate requests and save records.
-- `app/Models/CustomerModel.php` and `UserModel.php` allow only intended database fields.
-- `app/Views/customers` and `app/Views/users` render listings and forms.
-- `app/Database/Migrations` creates the POS tables and avatar column.
+The TFA3 task data lives in a new database. The original TSA1 project and database were not changed.
 
-The sample database data is for classroom demonstration. This activity does not include authentication or a production authorization system; deploy only for the required course demonstration.
+## Files to explain
+
+- `app/Config/Routes.php`: URLs and controller methods.
+- `app/Controllers/Customers.php` and `Users.php`: validation, database writes, and upload preparation.
+- `app/Models/CustomerModel.php` and `UserModel.php`: permitted database fields.
+- `app/Models/TaskModel.php` and `TaskUserModel.php`: read-only task and profile data from `taskStore`.
+- `app/Views/customers` and `app/Views/users`: directories and forms in the TSA1 refill-shop design.
+- `app/Database/Migrations`: POS, task-system, and avatar schema changes.
+- `docs/ACOB_IT0049_TFA3_MakingItEditable.docx`: report with real screenshots.
+
+## Submission
+
+Repository: https://github.com/Jiyaannnn/TFA3_ACOB_IT0049
+
+The supplied TFA3 instructions also list a hosted working version. No live hosted URL has been verified for this project. The user chose GitHub publication as the publishing scope. The app has no authentication or role authorization; it is a classroom demonstration, not a production account system.

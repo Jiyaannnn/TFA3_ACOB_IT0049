@@ -6,6 +6,7 @@ use CodeIgniter\Database\Migration;
 
 class CreatePosTables extends Migration
 {
+    protected $DBGroup = 'default';
     // up() applies the schema when `php spark migrate` is executed.
     public function up(): void
     {

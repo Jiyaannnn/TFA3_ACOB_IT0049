@@ -6,6 +6,8 @@ use CodeIgniter\Database\Migration;
 
 class AddUserAvatar extends Migration
 {
+    protected $DBGroup = 'default';
+
     public function up(): void
     {
         // The database keeps the public filename; image bytes stay on disk.

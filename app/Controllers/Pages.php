@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\CustomerModel;
 use App\Models\UserModel;
+use App\Models\TaskModel;
 
 class Pages extends BaseController
 {
@@ -22,7 +23,10 @@ class Pages extends BaseController
     public function index(): string
     {
         // countAllResults() keeps both dashboard totals synchronized with MySQL.
-        $data = $this->sharedData('Dashboard', 'home');
+        $data = $this->sharedData('Today', 'home');
+        $today = date('Y-m-d');
+        $data['today'] = $today;
+        $data['tasks'] = (new TaskModel())->forDate($today);
         $data['customerCount'] = (new CustomerModel())->countAllResults();
         $data['userCount'] = (new UserModel())->countAllResults();
 

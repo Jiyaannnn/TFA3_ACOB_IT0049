@@ -1,20 +1,20 @@
-# TFA3 screenshot checklist
+# TFA3 screenshot order
 
-Capture these from the actual running TFA3 application. Keep browser URL and relevant content visible. Do not use the screenshots from TFA2 or TSA1. The activity itself requests links, so these figures are optional evidence if a DOCX report or presentation is submitted.
+The screenshots below were captured from the running local TFA3 app and are embedded in the Word report. They are in `docs/evidence/`. They show a real demo upload with a generated initials image, not a personal photograph.
 
-| Figure | Page or file to open | What must be visible | Caption | Short explanation |
+| Figure | Page | Visible evidence | Caption | Explanation |
 | --- | --- | --- | --- | --- |
-| 1 | `/` | Ledgerline dashboard and live record counts | TFA3 POS dashboard | The existing POS app still reads customer and user totals from MySQL. |
-| 2 | `/customers` | Listing and New customer button | Customer account listing | Each row comes from CustomerModel and has an Edit action. |
-| 3 | `/customers/new` | Empty form with required name and email | New customer form | The form accepts contact data before validation and insertion. |
-| 4 | `/customers/new` after invalid submission | Typed values and field error message | Customer validation feedback | Invalid input is rejected while the entered values remain visible. |
-| 5 | `/customers/1/edit` | Existing name and email already filled in | Prefilled customer edit form | The controller loads the selected record before editing. |
-| 6 | `/users` | Listing, placeholder avatars, and New user button | User account listing | Users without an upload receive a placeholder image. |
-| 7 | `/users/new` after duplicate username submission | Entered name and username error | Unique username validation | The rule and database index prevent duplicate usernames. |
-| 8 | `/users/1/edit` | Prefilled fields and profile picture input | User edit and avatar form | The edit page accepts an optional JPG or PNG file up to 2 MB. |
-| 9 | `/users` after a real upload | Prepared avatar visible in its row | Prepared avatar on user listing | The generated display image is served from public uploads. |
-| 10 | Database client, `users` table schema | `avatar` VARCHAR column | Avatar database column | The table stores a filename, not binary image contents. |
-| 11 | `app/Controllers/Users.php` | Validation and image preparation code | User validation and upload logic | The controller validates the file then creates a 320 × 320 JPEG. |
-| 12 | GitHub repository page | README and `database/ledgerline_pos_tfa3.sql` | Published source and database export | The public repository includes setup instructions and the required export. |
-| 13 | Hosted application `/users` and an edit form | Live domain and functioning pages | Hosted working application | Verify creation, editing, and avatar display on the deployed site. |
-| 14 | Browser in narrow phone viewport | Form labels, inputs, actions without horizontal clipping | Responsive form layout | The form changes from two columns to one on small screens. |
+| 1 | `/` | TSA1 refill shop Today page and current task counts | Today page in the preserved refill shop design | TFA3 continues from TSA1. |
+| 2 | `/tasks` | Full task list | Complete task schedule | The read-only task feature remains available. |
+| 3 | `/customers` | Customer records and New customer | Customer directory with create action | Existing records remain and editing is available. |
+| 4 | `/customers/new` | Empty form | New customer form | Required name and email fields are visible. |
+| 5 | `/customers/new` after invalid entry | Invalid email error and retained name | Customer validation and retained values | Bad input is rejected without discarding typed data. |
+| 6 | `/customers/1/edit` | Prefilled values | Prefilled customer edit form | Existing database values load into the form. |
+| 7 | `/users` | Staff list and avatars | Staff directory | A prepared avatar and placeholders are displayed. |
+| 8 | `/users/new` | Empty form | New staff user form | Username and name are required. |
+| 9 | `/users/new` after duplicate | Duplicate username error | Username uniqueness validation | The duplicate is rejected and text remains. |
+| 10 | `/users/1/edit` | Prefilled values and upload field | User edit and avatar form | The optional upload accepts JPG or PNG up to 2 MB. |
+| 11 | `/users` after upload | Generated initials avatar | Prepared avatar on staff listing | The real uploaded PNG was converted to a JPEG for display. |
+| 12 | `/users/1/edit` at 390 px | Narrow one-column form | Mobile user edit layout | The page has no horizontal overflow at 390 px. |
+| 13 | `/profile` | Demo task-system user | Preserved demo profile | The TSA1 profile remains separate from staff records. |
+| 14 | `/about` | Developer and updated project text | About page | TFA3 details fit within the TSA1 visual system. |

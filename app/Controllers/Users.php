@@ -82,7 +82,7 @@ class Users extends BaseController
             $path = $directory . $filename;
             try {
                 // A bounded JPEG thumbnail is consistent for display and strips source metadata.
-                service('image')->withFile($upload->getTempName())->fit(320, 320, 'center')->save($path, 82);
+                service('image')->withFile($upload->getTempName())->fit(320, 320, 'center')->convert(IMAGETYPE_JPEG)->save($path, 82);
             } catch (\Throwable $exception) {
                 log_message('error', 'Avatar preparation failed: {message}', ['message' => $exception->getMessage()]);
                 $errors['avatar'] = 'The image could not be prepared. Please choose another JPG or PNG.';

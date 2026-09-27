@@ -6,6 +6,8 @@ use CodeIgniter\Router\RouteCollection;
 // A route connects a browser URL to the controller method that should handle it.
 $routes->get('/', 'Pages::index');
 $routes->get('/about', 'Pages::about');
+$routes->get('/tasks', 'Tasks::index');
+$routes->get('/profile', 'Profile::index');
 $routes->get('/customers', 'Customers::index');
 $routes->get('/customers/new', 'Customers::new');
 $routes->post('/customers', 'Customers::create', ['filter' => 'csrf']);

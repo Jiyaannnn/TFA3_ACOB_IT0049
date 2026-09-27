@@ -43,8 +43,10 @@ $RECYCLE.BIN/
 # as it poses a security risk.
 .env
 .env.*
+~$*.docx
 /public/uploads/avatars/*
 !/public/uploads/avatars/.gitkeep
+!/public/uploads/avatars/7f04301a08034c5a3a2bc47d500f3296.jpg
 .vagrant
 Vagrantfile
 

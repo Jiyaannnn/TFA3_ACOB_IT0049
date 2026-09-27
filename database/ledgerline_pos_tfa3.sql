@@ -66,7 +66,7 @@ CREATE TABLE `migrations` (
   `time` int NOT NULL,
   `batch` int unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2026-09-24-092700','App\\Database\\Migrations\\CreatePosTables','default','App',1790522335,1),(2,'2026-09-27-000001','App\\Database\\Migrations\\AddUserAvatar','default','App',1790522335,1);
+INSERT INTO `migrations` VALUES (1,'2026-09-24-092700','App\\Database\\Migrations\\CreatePosTables','default','App',1790522335,1),(2,'2026-09-27-000001','App\\Database\\Migrations\\AddUserAvatar','default','App',1790522335,1),(3,'2026-09-26-000001','App\\Database\\Migrations\\CreateTaskSystem','taskStore','App',1790523602,2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'jacob','Jian Acob',NULL,'2026-09-24 08:00:00'),(2,'ivicencio','Isaiah Vicencio',NULL,'2026-09-24 08:00:00'),(3,'abarcelona','Aaron Barcelona',NULL,'2026-09-24 08:00:00'),(4,'ajamito','Amiel Jamito',NULL,'2026-09-24 08:00:00'),(5,'smacaldo','Sean Macaldo',NULL,'2026-09-24 08:00:00');
+INSERT INTO `users` VALUES (1,'jacob','Jian Acob','7f04301a08034c5a3a2bc47d500f3296.jpg','2026-09-24 08:00:00'),(2,'ivicencio','Isaiah Vicencio',NULL,'2026-09-24 08:00:00'),(3,'abarcelona','Aaron Barcelona',NULL,'2026-09-24 08:00:00'),(4,'ajamito','Amiel Jamito',NULL,'2026-09-24 08:00:00'),(5,'smacaldo','Sean Macaldo',NULL,'2026-09-24 08:00:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -116,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-27 23:21:44
+-- Dump completed on 2026-09-27 23:44:36
