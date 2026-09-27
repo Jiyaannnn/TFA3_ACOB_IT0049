@@ -43,7 +43,7 @@ Set the following in `.env`. Use your own local MySQL credentials. The default a
 
 ```ini
 CI_ENVIRONMENT = development
-app.baseURL = 'http://localhost:8083/'
+app.baseURL = 'http://localhost:8080/'
 database.default.hostname = 127.0.0.1
 database.default.database = ledgerline_pos_tfa3
 database.default.username = root
@@ -58,10 +58,10 @@ Import the two included exports and start the app:
 ```bash
 mysql -u root < database/ledgerline_pos_tfa3.sql
 mysql -u root < database/ledgerline_refill_tfa3.sql
-php spark serve --port 8083
+php spark serve --port 8080
 ```
 
-Open `http://localhost:8083/`. Port 8083 keeps this project separate while an earlier app uses port 8080. You may choose another free port if `app.baseURL` matches it.
+Open `http://localhost:8080/`. If port 8080 is already running this project, use the existing server instead of starting another one.
 
 For fresh databases instead of the exports, create both databases, run `php spark migrate -g default` and `php spark migrate -g taskStore`, then run `php spark db:seed PosSeeder` and `php spark db:seed TaskSystemSeeder` exactly once.
 
