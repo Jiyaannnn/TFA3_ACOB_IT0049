@@ -1,11 +1,11 @@
 # TFA3 screenshot order
 
-The screenshots below were captured from the running local TFA3 app and are embedded in the Word report. They are in `docs/evidence/`. They show a real demo upload with a generated initials image, not a personal photograph.
+The screenshots below were captured from the running local TFA3 app. Selected images are embedded in the Word report; all originals are in `docs/evidence/`. They show a real demo upload with a generated initials image, not a personal photograph.
 
 | Figure | Page | Visible evidence | Caption | Explanation |
 | --- | --- | --- | --- | --- |
-| 1 | `/` | TSA1 refill shop Today page and current task counts | Today page in the preserved refill shop design | TFA3 continues from TSA1. |
-| 2 | `/tasks` | Full task list | Complete task schedule | The read-only task feature remains available. |
+| 1 | `/` | TSA1 refill shop Today page, task counts, and new logo image | Today page in the preserved refill shop design | TFA3 continues from TSA1. |
+| 2 | `/tasks` | Full task list with New task and Edit | Editable task schedule | Tasks can now be managed. |
 | 3 | `/customers` | Customer records and New customer | Customer directory with create action | Existing records remain and editing is available. |
 | 4 | `/customers/new` | Empty form | New customer form | Required name and email fields are visible. |
 | 5 | `/customers/new` after invalid entry | Invalid email error and retained name | Customer validation and retained values | Bad input is rejected without discarding typed data. |
@@ -18,3 +18,6 @@ The screenshots below were captured from the running local TFA3 app and are embe
 | 12 | `/users/1/edit` at 390 px | Narrow one-column form | Mobile user edit layout | The page has no horizontal overflow at 390 px. |
 | 13 | `/profile` | Demo task-system user | Preserved demo profile | The TSA1 profile remains separate from staff records. |
 | 14 | `/about` | Developer and updated project text | About page | TFA3 details fit within the TSA1 visual system. |
+| 15 | `/tasks/new` | Title, date, status, and Create task | New task form | A schedule item can be added. |
+| 16 | `/tasks/1/edit` | Prefilled values, Save changes, and Delete task | Task edit and delete controls | A schedule item can be updated or removed. |
+| 17 | `/tasks/1/edit` at 390 px | Narrow one-column task form | Mobile task edit layout | The page has no horizontal overflow at 390 px. |

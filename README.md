@@ -1,6 +1,6 @@
 # Ledgerline Refill TFA3
 
-**Making It Editable: Forms, Validation, and File Upload** extends Jian Edward A. Acob's TSA1 Ledgerline Refill CodeIgniter application. The refill-shop design, Today page, full task list, demo profile, About page, and light/dark theme remain. TFA3 adds editable customer and staff accounts, validation, and staff profile pictures.
+**Making It Editable: Forms, Validation, and File Upload** extends Jian Edward A. Acob's TSA1 Ledgerline Refill CodeIgniter application. The refill-shop design, Today page, demo profile, About page, and light/dark theme remain. TFA3 adds editable tasks, customer and staff accounts, validation, staff profile pictures, and a bottle-and-return logo image.
 
 - **Student:** Jian Edward A. Acob
 - **Section:** TW32
@@ -12,7 +12,10 @@
 | Route | Purpose |
 | --- | --- |
 | `/` | Refill-shop Today page with tasks scheduled for the current date |
-| `/tasks` | Complete task list |
+| `/tasks` | Complete task list with edit actions |
+| `/tasks/new` | Validated new task form |
+| `/tasks/{id}/edit` | Prefilled task edit form with delete action |
+| `POST /tasks/{id}/delete` | Delete a task with CSRF protection |
 | `/profile` | Demo task-system user |
 | `/about` | Shop concept and project details |
 | `/customers` | Customer directory with edit actions |
@@ -22,7 +25,7 @@
 | `/users/new` | Validated new user form |
 | `/users/{id}/edit` | Prefilled user edit form with optional avatar upload |
 
-Customer creation requires a full name and valid email. User creation requires a full name and unique username. Invalid submissions show field errors and preserve typed values. Edit forms are prefilled from MySQL. An avatar must be a real JPG or PNG no larger than 2 MB. CodeIgniter prepares a 320 × 320 JPEG in `public/uploads/avatars/`; `users.avatar` stores only its filename. Every POST form includes a CSRF token.
+Task creation requires a title, valid date, and allowed status. Customer creation requires a full name and valid email. User creation requires a full name and unique username. Invalid submissions show field errors and preserve typed values. Edit forms are prefilled from MySQL. An avatar must be a real JPG or PNG no larger than 2 MB. CodeIgniter prepares a 320 × 320 JPEG in `public/uploads/avatars/`; `users.avatar` stores only its filename. Every POST form includes a CSRF token.
 
 ## Requirements
 
@@ -72,9 +75,11 @@ The TFA3 task data lives in a new database. The original TSA1 project and databa
 ## Files to explain
 
 - `app/Config/Routes.php`: URLs and controller methods.
-- `app/Controllers/Customers.php` and `Users.php`: validation, database writes, and upload preparation.
+- `app/Controllers/Tasks.php`, `Customers.php`, and `Users.php`: validation, database writes, deletion, and upload preparation.
 - `app/Models/CustomerModel.php` and `UserModel.php`: permitted database fields.
-- `app/Models/TaskModel.php` and `TaskUserModel.php`: read-only task and profile data from `taskStore`.
+- `app/Models/TaskModel.php` and `TaskUserModel.php`: editable task data and read-only profile data from `taskStore`.
+- `app/Views/tasks`: task listing and form in the TSA1 refill-shop design.
+- `public/assets/images/ledgerline-refill-mark.svg`: original bottle-and-return logo image used in the header.
 - `app/Views/customers` and `app/Views/users`: directories and forms in the TSA1 refill-shop design.
 - `app/Database/Migrations`: POS, task-system, and avatar schema changes.
 - `docs/ACOB_IT0049_TFA3_MakingItEditable.docx`: report with real screenshots.

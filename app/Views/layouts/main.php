@@ -24,7 +24,7 @@
 <div class="site-shell">
     <div class="top-note"><span>LEDGERLINE REFILL</span><span>Neighborhood essentials, thoughtfully replenished.</span></div>
     <header class="site-header">
-        <a class="brand" href="<?= site_url('/') ?>" aria-label="Ledgerline Refill home"><span class="brand-icon" aria-hidden="true">↻</span><span class="brand-name">ledgerline<span> / refill</span></span></a>
+        <a class="brand" href="<?= site_url('/') ?>" aria-label="Ledgerline Refill home"><img class="brand-logo" src="<?= base_url('assets/images/ledgerline-refill-mark.svg') ?>" width="42" height="42" alt=""><span class="brand-name">ledgerline<span> / refill</span></span></a>
         <nav class="site-nav" id="site-navigation" aria-label="Main navigation">
             <a class="<?= $activePage === 'home' ? 'active' : '' ?>" href="<?= site_url('/') ?>">Today</a>
             <a class="<?= $activePage === 'tasks' ? 'active' : '' ?>" href="<?= site_url('tasks') ?>">All tasks</a>

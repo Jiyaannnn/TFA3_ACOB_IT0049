@@ -1,12 +1,89 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\TaskModel;
-class Tasks extends BaseController {
-    public function today(): string {
-        $today = date('Y-m-d');
-        return view('tasks/today', ['title' => 'Today', 'activePage' => 'today', 'today' => $today, 'tasks' => (new TaskModel())->forDate($today)]);
-    }
-    public function index(): string {
+use CodeIgniter\Exceptions\PageNotFoundException;
+
+class Tasks extends BaseController
+{
+    public function index(): string
+    {
         return view('tasks/index', ['title' => 'All tasks', 'activePage' => 'tasks', 'tasks' => (new TaskModel())->allByDate()]);
+    }
+
+    public function new(): string
+    {
+        return $this->taskForm(null, [], ['task_date' => date('Y-m-d'), 'status' => 'pending']);
+    }
+
+    public function create()
+    {
+        return $this->saveTask(null);
+    }
+
+    public function edit(int $id): string
+    {
+        $task = (new TaskModel())->find($id);
+        if ($task === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        return $this->taskForm($task, [], $task);
+    }
+
+    public function update(int $id)
+    {
+        return $this->saveTask($id);
+    }
+
+    public function delete(int $id)
+    {
+        $model = new TaskModel();
+        if ($model->find($id) === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        $model->delete($id);
+        return redirect()->to(site_url('tasks'))->with('success', 'Task deleted.');
+    }
+
+    private function saveTask(?int $id)
+    {
+        $model = new TaskModel();
+        $task = $id === null ? null : $model->find($id);
+        if ($id !== null && $task === null) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+        $values = [
+            'title' => trim((string) $this->request->getPost('title')),
+            'task_date' => trim((string) $this->request->getPost('task_date')),
+            'status' => trim((string) $this->request->getPost('status')),
+        ];
+        // Check the date and allowed status before changing the task database.
+        $rules = [
+            'title' => 'required|max_length[150]',
+            'task_date' => 'required|valid_date[Y-m-d]',
+            'status' => 'required|in_list[pending,in progress,completed]',
+        ];
+        if (! $this->validateData($values, $rules)) {
+            return $this->taskForm($task, $this->validator->getErrors(), $values);
+        }
+        if ($id === null) {
+            $values['created_at'] = date('Y-m-d H:i:s');
+            $model->insert($values);
+        } else {
+            $model->update($id, $values);
+        }
+        return redirect()->to(site_url('tasks'))->with('success', $id === null ? 'Task created.' : 'Task updated.');
+    }
+
+    private function taskForm(?array $task, array $errors, array $values): string
+    {
+        return view('tasks/form', [
+            'title' => $task === null ? 'New Task' : 'Edit Task',
+            'activePage' => 'tasks',
+            'task' => $task,
+            'errors' => $errors,
+            'values' => $values,
+        ]);
     }
 }
